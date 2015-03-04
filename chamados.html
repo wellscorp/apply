@@ -52,11 +52,11 @@
 <div data-role="page" id="chamados">
 
     <!-- INICIO DO PAINEL -->
-    <div data-role="panel" data-theme="b" id="mypanel"  data-display="overlay">
+    <div data-role="panel" id="mypanel" data-theme="b"  data-display="overlay">
         <!-- panel content goes here -->
         <ul data-role="listview" >
             <li><a href="../index.html" rel="external" >Inicio</a></li>
-            <li><a href="chamados.html"  rel="external">Chamados</a></li>
+            <li><a href="#" >Chamados</a></li>
             <li><a href="status.html" rel="external">Status</a></li>
         </ul>
     </div><!-- /panel -->
@@ -64,16 +64,23 @@
 
 
     <header data-role="header" data-theme="b" data-position="fixed">
-        <h1>Novo Status</h1>
+        <h1>Chamados</h1>
         <a href="#mypanel" class=" ui-icon ui-btn-left ui-btn-icon-bottom  " data-icon="bars"></a>
+        <a href="inserir-chamado.html" rel="external" class=" ui-icon ui-btn-right ui-btn-icon-bottom  " data-icon="plus"></a>
     </header>
 
     <section data-role="content">
 
-        <form id="statusForm">
-            <input type="text" name="descricao" id="descricao" placeholder="Nome...">
-            <input class="ui-btn-active" data-role="button" data-theme="b" type="submit" value="Salvar">
-        </form>
+        <ul data-role="listview">
+            <li><a href="#" > Chamado 01</a></li>
+            <li><a href="#"> Chamado 02</a></li>
+            <li><a href="#"> Chamado 03</a></li>
+            <li><a href="#"> Chamado 04</a></li>
+            <li><a href="#"> Chamado 05</a></li>
+            <li><a href="#"> Chamado 06</a></li>
+            <li><a href="#"> Chamado 07</a></li>
+            <li><a href="#"> Chamado 08</a></li>
+        </ul>
     </section>
 
     <footer data-role="footer" data-position="fixed">
