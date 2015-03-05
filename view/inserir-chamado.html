@@ -48,6 +48,7 @@
 </head>
 <body>
 
+
 <!-- ------------------------ PAGINA DOIS ------------------------------- -->
 <div data-role="page" id="chamados">
 
@@ -65,7 +66,7 @@
 
     <header data-role="header" data-theme="b" data-position="fixed">
         <h1>Novo Chamado</h1>
-        <a href="#mypanel" class=" ui-icon ui-btn-left ui-btn-icon-bottom  " data-icon="bars"></a>
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" data-icon="bars"></a>
     </header>
 
     <section data-role="content">
@@ -82,7 +83,7 @@
                     <option value="Status 04">Status 04</option>
                 </select>
             </div>
-            <input class="ui-btn-active" data-role="button" data-theme="b" type="submit" value="Salvar">
+            <input class="ui-btn-active" data-role="button" onclick="return registrar()" data-theme="b" type="submit" value="Salvar">
         </form>
     </section>
 
@@ -93,9 +94,77 @@
 
 
 <script type="text/javascript" src="../js/cordova.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
 <script type="text/javascript">
     app.initialize();
+</script>
+
+
+<script>
+    function registrar(){
+        var titulo= document.getElementById("titulo").value;
+        var descricao= document.getElementById("descricao").value;
+
+
+        // --------------------- ENVIAR PARA BANCO ----------------------------
+
+        $.ajax({
+
+            type: "POST",
+            data: {titulo: titulo, descricao: descricao },
+            url: "http://192.168.0.19:8089/sis_telecom/module/Chamado/src/Chamado/Validacao/mobile.php",
+            datatype: "html",
+            success: function(result, status){
+                //console.log(result);
+                //var retorno= JSON.parse(result);
+                alert("enviado com sucesso! : " + result);
+
+                var  database= window.openDatabase("banco", "1.0", "banco de dados", 200000);
+                database.transaction(function(tx){
+                    novoChamado(tx, titulo, descricao);
+                }, errorChamado, successChamado);
+                /*
+                var jsonretorno = $.parseJSON(result);
+                if(jsonretorno== 0){
+                    alert("Usuário ou senha não registrados")
+                    location.reload("index.php");
+                }else{
+                    console.log("entrou");
+                    $("div#div-into").load("index_into.php");
+                }
+
+
+                // $(jsonretorno).each(function(ind, elem){
+                // if(elem['US']== 'nao' || elem['SE']== 'nao') {
+                // alert("Usuário ou senha não registrados")
+                // location.reload("index.php");
+                // }
+                // });
+                */
+            },
+            complete: function(result){
+                alert("testou!");
+
+            }
+        });
+    }
+
+    function novoChamado(tx, titulo, descricao){
+
+        query= "INSERT INTO chamado (ROLLNO, titulo, descricao) VALUES (3, '"+titulo+"', '"+descricao+"')";
+        alert(query);
+        tx.executeSql(query);
+
+    }
+
+    function errorChamado(error){
+        alert("Erro ao inserir no banco: " + error);
+    }
+
+    function successChamado(){
+        alert("Chamado inserido com sucesso!");
+    }
+
+
 </script>
 </body>
 <script type="text/javascript">

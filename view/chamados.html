@@ -46,7 +46,52 @@
 
     <title>Hello no World</title>
 </head>
-<body>
+<body onload="getChamados()">
+
+<script>
+
+    function getChamados(){
+
+        database= window.openDatabase("banco", "1.0", "banco de dados", 200000);
+        database.transaction(SelectChamado, resultError, resultSuccess);
+    }
+
+    function SelectChamado(tx){
+
+        tx.executeSql("SELECT * FROM chamado", [], resultSuccess,resultError);
+
+    }
+
+    function resultSuccess(tx, responde){
+        //alert("Resposta : " +responde);
+        //var div= document.getElementById("resposta");
+
+        var temp= '<ul data-role="listview" >';
+
+        //var temp= "";
+        for(var i=0; i< responde.rows.length; i++ ){
+            temp += ' <li><a href="#" >'+responde.rows.item(i).titulo+'  </a></li>   ';
+            /*
+            $("#resposta").append(
+                    ' <li><a href="#" >'+responde.rows.item(i).titulo+'  </a></li> '
+            );
+            */
+            //alert(temp);
+        }
+
+        temp +='</ul>';
+        //alert(temp);
+        //div.innerHTML= temp;
+        $("#resposta").append(temp);
+    }
+
+    function resultError(error){
+        alert("error ocorreu: "+error);
+    }
+
+
+</script>
+
 
 <!-- ------------------------ PAGINA DOIS ------------------------------- -->
 <div data-role="page" id="chamados">
@@ -65,22 +110,16 @@
 
     <header data-role="header" data-theme="b" data-position="fixed">
         <h1>Chamados</h1>
-        <a href="#mypanel" class=" ui-icon ui-btn-left ui-btn-icon-bottom  " data-icon="bars"></a>
-        <a href="inserir-chamado.html" rel="external" class=" ui-icon ui-btn-right ui-btn-icon-bottom  " data-icon="plus"></a>
+        <a href="#mypanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" data-icon="bars"></a>
+        <a href="inserir-chamado.html" rel="external" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-notext" data-icon="plus"></a>
     </header>
 
     <section data-role="content">
 
-        <ul data-role="listview">
-            <li><a href="#" > Chamado 01</a></li>
-            <li><a href="#"> Chamado 02</a></li>
-            <li><a href="#"> Chamado 03</a></li>
-            <li><a href="#"> Chamado 04</a></li>
-            <li><a href="#"> Chamado 05</a></li>
-            <li><a href="#"> Chamado 06</a></li>
-            <li><a href="#"> Chamado 07</a></li>
-            <li><a href="#"> Chamado 08</a></li>
-        </ul>
+        <!-- <button onclick="getChamados()">Chamados</button> <br>-->
+        <div  id="resposta">
+        </div>
+
     </section>
 
     <footer data-role="footer" data-position="fixed">
