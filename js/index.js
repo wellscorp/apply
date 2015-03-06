@@ -78,7 +78,7 @@ function errorDB(error){
 }
 
 function successDB(){
-    alert("Informações inseridas com sucesso!");
+    //alert("Informações inseridas com sucesso!");
 }
 
 

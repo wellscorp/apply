@@ -115,7 +115,8 @@
             datatype: "html",
             success: function(result, status){
                 //console.log(result);
-                //var retorno= JSON.parse(result);
+                //alert(result);
+                //var retorno= $.parseJSON(result);
                 alert("enviado com sucesso! : " + result);
 
                 var  database= window.openDatabase("banco", "1.0", "banco de dados", 200000);
@@ -151,7 +152,7 @@
     function novoChamado(tx, titulo, descricao){
 
         query= "INSERT INTO chamado (ROLLNO, titulo, descricao) VALUES (3, '"+titulo+"', '"+descricao+"')";
-        alert(query);
+        //alert(query);
         tx.executeSql(query);
 
     }
@@ -161,7 +162,7 @@
     }
 
     function successChamado(){
-        alert("Chamado inserido com sucesso!");
+        //alert("Chamado inserido com sucesso!");
     }
 
 
